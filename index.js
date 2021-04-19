@@ -1,17 +1,19 @@
 const express = require("express");
 const nodemailer = require('nodemailer');
+const path = require('path');
 const app = express();
 
 
 app.use(express.json());
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net",
-  port: 465,
-  secure: true, // true for 465, false for other ports
+  host: "smtp.gmail.com",
+  // port: 465,
+  service: 'gmail',
+  // secure: true, // true for 465, false for other ports
   auth: {
-    user: "apikey",
-    pass: "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"
+    user: "stringercj12@gmail.com",
+    pass: "je66187719"
   },
   tls: { rejectUnauthorized: false }
 });
@@ -30,6 +32,7 @@ app.post('/contato', function (req, res) {
     to: email,
     subject: assunto,
     text: message,
+    html: path.resolve(__dirname, 't.html')
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
